@@ -110,6 +110,7 @@ public class Client extends JFrame {
 		this.upperPanel.repaint(h);
 		this.repaint();
 	}
+	
 
 	private void addTask(Object obj) {
 		// TODO Auto-generated method stub

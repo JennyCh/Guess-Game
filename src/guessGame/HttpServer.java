@@ -29,13 +29,14 @@ public class HttpServer {
 		server = new Server(8080);
 		sessionIdManager = new HashSessionIdManager();
 		context = new ContextHandler("/");
+		server.setHandler(context);
 		manager = new HashSessionManager();
 		sessions = new SessionHandler(manager);
 		context.setHandler(sessions);
 
 		server.setSessionIdManager(sessionIdManager);
 
-		server.setHandler(new MasterHttpHandler(new ImagesTaskFactory()));
+		sessions.setHandler(new MasterHttpHandler(new ImagesTaskFactory()));
 		server.start();
 		server.join();
 	}
