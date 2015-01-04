@@ -5,5 +5,5 @@ public interface Challenge {
 
 	public String getAnswer();
 
-	public TaskFactoryType getTFType();
+	public TaskType getTFType();
 }

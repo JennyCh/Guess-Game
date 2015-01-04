@@ -1,6 +1,6 @@
 package guessGame;
 
-public enum TaskFactoryType {
+public enum TaskType {
 
 	BINARY("application/octet-stream"), JPEG("image/jpeg"), GIF("image/gif"), TEXT("text/plain");
 
@@ -10,7 +10,7 @@ public enum TaskFactoryType {
 
 	
 	public String description;
-	TaskFactoryType(String description) {
+	TaskType(String description) {
 		this.description = description;
 	}
 

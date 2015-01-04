@@ -1,6 +1,6 @@
 package guessGame.handlers;
 
-import guessGame.TaskFactoryType;
+import guessGame.TaskType;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -19,7 +19,7 @@ public class GIFResponseHandler extends AbstractHandler {
 	public void handle(String target, Request baseRequest,
 			HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
-		response.setContentType(TaskFactoryType.GIF.getDescription());
+		response.setContentType(TaskType.GIF.getDescription());
 		
 		response.setStatus(HttpServletResponse.SC_OK);
 		//response.getWriter().println("Hello World");

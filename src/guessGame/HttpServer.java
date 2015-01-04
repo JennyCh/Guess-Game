@@ -1,6 +1,7 @@
 package guessGame;
 
 
+import guessGame.ImagesTaskFactory;
 import guessGame.TaskFactory;
 import guessGame.handlers.MasterHttpHandler;
 
@@ -34,7 +35,7 @@ public class HttpServer {
 
 		server.setSessionIdManager(sessionIdManager);
 
-		server.setHandler(new MasterHttpHandler(new TaskFactory()));
+		server.setHandler(new MasterHttpHandler(new ImagesTaskFactory()));
 		server.start();
 		server.join();
 	}

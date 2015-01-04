@@ -1,7 +1,8 @@
+
 package guessGame.frontend;
 
 import guessGame.Task;
-import guessGame.guessGame.LowerPanel;
+import guessGame.frontend.LowerPanel;
 import guessGame.paint.message.ClearMessage;
 import guessGame.paint.message.PaintMessage;
 

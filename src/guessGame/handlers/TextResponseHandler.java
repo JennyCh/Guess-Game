@@ -1,6 +1,6 @@
 package guessGame.handlers;
 
-import guessGame.TaskFactoryType;
+import guessGame.TaskType;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -20,7 +20,7 @@ public class TextResponseHandler extends AbstractHandler {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		response.setContentType(TaskFactoryType.TEXT.getDescription());
+		response.setContentType(TaskType.TEXT.getDescription());
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		// response.getWriter().println("Hello World");

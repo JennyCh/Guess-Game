@@ -1,9 +1,11 @@
 package guessGame;
 
+import java.io.Serializable;
+
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
-public class ImageTask extends JComponent implements Challenge {
+public class ImageTask extends JComponent implements Challenge,Serializable {
 
 	private final ImageIcon image;
 	private final String answer;
@@ -22,7 +24,7 @@ public class ImageTask extends JComponent implements Challenge {
 	@Override
 	public String getAnswer() {
 		// TODO Auto-generated method stub
-		return null;
+		return answer;
 	}
 
 	public ImageIcon getImage() {
@@ -30,7 +32,7 @@ public class ImageTask extends JComponent implements Challenge {
 	}
 
 	@Override
-	public TaskFactoryType getTFType() {
+	public TaskType getTFType() {
 		// TODO Auto-generated method stub
 		return null;
 	}

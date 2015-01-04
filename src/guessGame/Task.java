@@ -9,9 +9,9 @@ public class Task implements Challenge, Serializable{
 
 	private Object challenge;
 	private String answer;
-	private TaskFactoryType tfType;
+	private TaskType tfType;
 
-	public Task(TaskFactoryType tfType, PaintMessage challenge, String answer)  {
+	public Task(TaskType tfType, PaintMessage challenge, String answer)  {
 		this.tfType = tfType;
 		this.challenge = challenge;
 		this.answer = answer;
@@ -19,7 +19,7 @@ public class Task implements Challenge, Serializable{
 	}
 	
 	public Task(ImageTask imageTask){
-		this.tfType = TaskFactoryType.JPEG;
+		this.tfType = TaskType.JPEG;
 		this.challenge = imageTask.getChallenge();
 		this.answer = imageTask.getAnswer();
 	}
@@ -43,7 +43,7 @@ public class Task implements Challenge, Serializable{
 
 
 	@Override
-	public TaskFactoryType getTFType() {
+	public TaskType getTFType() {
 		// TODO Auto-generated method stub
 		return tfType;
 	}

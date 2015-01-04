@@ -32,10 +32,10 @@ public class TaskFactory {
 		 */
 
 		challenges = new ArrayList<Task>();
-		challenges.add(new Task(TaskFactoryType.BINARY,new LineMessage(0, 100, 200, 300, Color.BLACK.getRGB(), 30),"line"));
-		challenges.add(new Task(TaskFactoryType.BINARY,new LineMessage(50, 100, 100, 300, Color.BLACK.getRGB(), 10),"line"));
-		challenges.add(new Task(TaskFactoryType.BINARY,new ShapeMessage(PaintType.RECTANGLE,100, 100, 100, 200, Color.BLACK.getRGB(), 10,true),"rectangle"));
-		challenges.add(new Task(TaskFactoryType.BINARY,new ShapeMessage(PaintType.OVAL,100, 100, 100, 200, Color.BLACK.getRGB(), 10,false),"oval"));
+		challenges.add(new Task(TaskType.BINARY,new LineMessage(0, 100, 200, 300, Color.BLACK.getRGB(), 30),"line"));
+		challenges.add(new Task(TaskType.BINARY,new LineMessage(50, 100, 100, 300, Color.BLACK.getRGB(), 10),"line"));
+		challenges.add(new Task(TaskType.BINARY,new ShapeMessage(PaintType.RECTANGLE,100, 100, 100, 200, Color.BLACK.getRGB(), 10,true),"rectangle"));
+		challenges.add(new Task(TaskType.BINARY,new ShapeMessage(PaintType.OVAL,100, 100, 100, 200, Color.BLACK.getRGB(), 10,false),"oval"));
 		// upperPanels = getAllFileNames();
 	
 

@@ -1,6 +1,6 @@
 package guessGame.handlers;
 
-import guessGame.TaskFactoryType;
+import guessGame.TaskType;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -18,7 +18,7 @@ public class BinaryResponseHandler extends AbstractHandler {
 	public void handle(String target, Request baseRequest,
 			HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
-		response.setContentType(TaskFactoryType.BINARY.getDescription());
+		response.setContentType(TaskType.BINARY.getDescription());
 		
 		response.setStatus(HttpServletResponse.SC_OK);
 		//response.getWriter().println("Hello World");

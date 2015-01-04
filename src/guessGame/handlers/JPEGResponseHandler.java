@@ -1,6 +1,6 @@
 package guessGame.handlers;
 
-import guessGame.TaskFactoryType;
+import guessGame.TaskType;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -19,7 +19,7 @@ public class JPEGResponseHandler extends AbstractHandler {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		response.setContentType(TaskFactoryType.JPEG.getDescription());
+		response.setContentType(TaskType.JPEG.getDescription());
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		// response.getWriter().println("Hello World");

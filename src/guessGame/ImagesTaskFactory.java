@@ -3,11 +3,11 @@ package guessGame;
 import guessGame.ImageTask;
 import guessGame.Task;
 import guessGame.TaskFactory;
-import guessGame.TaskFactoryType;
+import guessGame.TaskType;
 
 public class ImagesTaskFactory extends TaskFactory {
 
-	private TaskFactoryType type;
+	private TaskType type;
 
 	public ImagesTaskFactory() {
 		super();

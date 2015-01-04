@@ -1,7 +1,7 @@
 package guessGame.handlers;
 
 import guessGame.Challenge;
-import guessGame.TaskFactoryType;
+import guessGame.TaskType;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,13 +15,13 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 
 public class HandlerFactory {
 	
-	private HashMap<TaskFactoryType,AbstractHandler> handlerMap;
+	private HashMap<TaskType,AbstractHandler> handlerMap;
 	public HandlerFactory(){
-		handlerMap = new HashMap<TaskFactoryType,AbstractHandler>();
-		handlerMap.put(TaskFactoryType.BINARY, new BinaryResponseHandler());
-		handlerMap.put(TaskFactoryType.JPEG, new JPEGResponseHandler());
-		handlerMap.put(TaskFactoryType.GIF, new GIFResponseHandler());
-		handlerMap.put(TaskFactoryType.TEXT, new TextResponseHandler());
+		handlerMap = new HashMap<TaskType,AbstractHandler>();
+		handlerMap.put(TaskType.BINARY, new BinaryResponseHandler());
+		handlerMap.put(TaskType.JPEG, new JPEGResponseHandler());
+		handlerMap.put(TaskType.GIF, new GIFResponseHandler());
+		handlerMap.put(TaskType.TEXT, new TextResponseHandler());
 	}
 	
 	public void handleTask(Challenge currentTask,String target, Request baseRequest,
