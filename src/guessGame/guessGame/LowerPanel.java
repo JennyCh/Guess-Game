@@ -1,4 +1,4 @@
-package guessGame;
+package guessGame.guessGame;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

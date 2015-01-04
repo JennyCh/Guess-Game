@@ -1,7 +1,6 @@
-package guessGame;
+package guessGame.handlers;
 
 import guessGame.Challenge;
-import guessGame.HandlerFactory;
 import guessGame.Task;
 import guessGame.TaskFactory;
 

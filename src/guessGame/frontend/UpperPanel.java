@@ -1,4 +1,4 @@
-package guessGame;
+package guessGame.frontend;
 
 import guessGame.paint.message.ClearMessage;
 import guessGame.paint.message.PaintMessage;

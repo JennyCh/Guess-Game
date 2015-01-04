@@ -1,4 +1,6 @@
-package guessGame;
+package guessGame.handlers;
+
+import guessGame.TaskFactoryType;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

@@ -1,8 +1,8 @@
 package guessGame;
 
 
-import guessGame.MasterHttpHandler;
 import guessGame.TaskFactory;
+import guessGame.handlers.MasterHttpHandler;
 
 import javax.swing.JPanel;
 

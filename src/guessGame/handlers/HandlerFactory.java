@@ -1,4 +1,7 @@
-package guessGame;
+package guessGame.handlers;
+
+import guessGame.Challenge;
+import guessGame.TaskFactoryType;
 
 import java.io.IOException;
 import java.util.HashMap;

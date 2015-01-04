@@ -1,4 +1,4 @@
-package guessGame;
+package guessGame.handlers;
 
 import java.io.IOException;
 
