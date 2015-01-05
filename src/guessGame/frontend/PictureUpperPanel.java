@@ -1,34 +1,31 @@
 package guessGame.frontend;
 
-import java.awt.Graphics;
-
-import guessGame.ImageTask;
 import guessGame.Task;
+import guessGame.threads.DownloadImageThread;
 
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class PictureUpperPanel extends UpperPanel {
-	private ImageIcon icon = new ImageIcon();
-	public PictureUpperPanel(LowerPanel lowerPanel) {
-		super(lowerPanel);
+	private String link;
+	private JLabel jlb;
+	public PictureUpperPanel(String imageLink) throws IOException {
+		this.link = imageLink;
+		URL imgUrl = new URL(link);
+		BufferedImage img = ImageIO.read(imgUrl);
+		jlb = new JLabel();
+		jlb.setPreferredSize(new Dimension(300,300));
+		new DownloadImageThread(this,jlb,imageLink).start();;
+		
+		add(jlb);
 	}
 
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
 
-		icon.paintIcon(this, g, 0, 0);
-	}
-
-	@Override
-	public void addTaskContent(Object content) {
-		
-		Task h = (Task) content;
-		String answer = h.getAnswer();
-		icon =(ImageIcon) h.getChallenge();
-		repaint();
-		setTaskSolution(answer);
-		
-		
-	}
 }

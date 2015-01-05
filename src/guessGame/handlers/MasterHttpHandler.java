@@ -29,7 +29,6 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 public class MasterHttpHandler extends AbstractHandler  {
 	private TaskFactory tf;
 	private HandlerFactory handlerFactory;
-	private ArrayList<HttpSession> sessions = new ArrayList<HttpSession>();
 	
 	public MasterHttpHandler(TaskFactory tf){
 		this.tf = tf;
@@ -44,10 +43,7 @@ public class MasterHttpHandler extends AbstractHandler  {
 		System.out.println(request.getAttribute(user));
 		String pwd = request.getParameter("pwd");
 		
-		HttpSession session = baseRequest.getSession();
-		if(null !=session){
-			sessions.add(session);
-		}
+	
 		/*
 		Enumeration<String> g = session.getAttributeNames();
 		while(g.hasMoreElements()){
@@ -59,11 +55,7 @@ public class MasterHttpHandler extends AbstractHandler  {
 		request.setAttribute("Task", currentTask);
 		handlerFactory.handleTask(currentTask ,target,  baseRequest,
 				request, response);
-		for(HttpSession hs: sessions){
-			baseRequest.setSession(hs);
-			handlerFactory.handleTask(currentTask ,target,  baseRequest,
-					request, response);
-		}
+
 		
 		System.out.println("Handled");
 

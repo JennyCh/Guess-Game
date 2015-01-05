@@ -1,6 +1,7 @@
 
 package guessGame.frontend;
 
+import guessGame.ImageTask;
 import guessGame.Task;
 import guessGame.frontend.LowerPanel;
 import guessGame.paint.message.ClearMessage;
@@ -8,6 +9,7 @@ import guessGame.paint.message.PaintMessage;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
@@ -88,7 +90,7 @@ public class Client extends JFrame {
 					new ByteArrayInputStream(res.getContent()));
 			obj = inStream.readObject();
 
-			addPaintTask(obj);
+			addTask(obj);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,10 +114,12 @@ public class Client extends JFrame {
 	}
 	
 
-	private void addTask(Object obj) {
-		// TODO Auto-generated method stub
+	private void addTask(Object obj) throws IOException {
+		this.upperPanel.removeAll();
 		Task g = (Task) obj;
-		PaintMessage h = (PaintMessage) g.getChallenge();
+		PictureUpperPanel p= new PictureUpperPanel((String)g.getChallenge());
+		this.upperPanel.add(p);
+		this.lowerPanel.setAnswer(g.getAnswer());
 
 	}
 	

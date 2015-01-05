@@ -36,7 +36,7 @@ public class HttpServer {
 
 		server.setSessionIdManager(sessionIdManager);
 
-		sessions.setHandler(new MasterHttpHandler(new ImagesTaskFactory()));
+		sessions.setHandler(new MasterHttpHandler(new TaskFactory()));
 		server.start();
 		server.join();
 	}

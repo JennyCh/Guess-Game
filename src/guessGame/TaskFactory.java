@@ -19,10 +19,10 @@ public class TaskFactory {
 	 * a task out of them
 	 */
 	private Task task;
-	protected List<Task> challenges;
+	protected ArrayList<Challenge> challenges;
 	private int currentIndex = 0;
 
-	public TaskFactory() {
+	public TaskFactory() throws IOException {
 		/*
 		 * create a function that will go through the folder to pick all the
 		 * panels by name
@@ -31,11 +31,14 @@ public class TaskFactory {
 		 * //this.lowerPanel = lowerPanels.get(r.nextInt(lowerPanels.size()));
 		 */
 
-		challenges = new ArrayList<Task>();
-		challenges.add(new Task(TaskType.BINARY,new LineMessage(0, 100, 200, 300, Color.BLACK.getRGB(), 30),"line"));
+		challenges = new ArrayList<Challenge>();
+		challenges.add(new Task(TaskType.JPEG,"https://farm8.staticflickr.com/7572/15491044323_99a2255bba_m.jpg", "Bullfinch"));
+		new DownloadHTMLImagesThread(challenges).start();;
+		/*challenges.add(new Task(TaskType.BINARY,new LineMessage(0, 100, 200, 300, Color.BLACK.getRGB(), 30),"line"));
 		challenges.add(new Task(TaskType.BINARY,new LineMessage(50, 100, 100, 300, Color.BLACK.getRGB(), 10),"line"));
 		challenges.add(new Task(TaskType.BINARY,new ShapeMessage(PaintType.RECTANGLE,100, 100, 100, 200, Color.BLACK.getRGB(), 10,true),"rectangle"));
 		challenges.add(new Task(TaskType.BINARY,new ShapeMessage(PaintType.OVAL,100, 100, 100, 200, Color.BLACK.getRGB(), 10,false),"oval"));
+		*/
 		// upperPanels = getAllFileNames();
 	
 
