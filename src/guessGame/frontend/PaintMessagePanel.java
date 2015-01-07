@@ -8,7 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class PaintMessagePanel extends UpperPanel {
+public class PaintMessagePanel extends TaskPanel {
 
 	private static final long serialVersionUID = 2646018017326072535L;
 	private String answer;
@@ -19,8 +19,8 @@ public class PaintMessagePanel extends UpperPanel {
 
 	
 
-	public PaintMessagePanel(LowerPanel lowerPanel) {
-		super(lowerPanel);
+	public PaintMessagePanel() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -36,19 +36,14 @@ public class PaintMessagePanel extends UpperPanel {
 	}
 
 	@Override
-	public void addTaskContent(Object content) {
+	public void addTask(Object challenge) {
 		// TODO Auto-generated method stub
-		Task g = (Task) content;
+		Task g = (Task) challenge;
 		PaintMessage h = (PaintMessage) g.getChallenge();
 		String answer = g.getAnswer();
-		
-		setTaskSolution(answer);
 		this.repaint(h);
 		
 	}
-	@Override
-	public void setTaskSolution(String solution) {
-		super.setTaskSolution(solution);
-	}
+	
 
 }

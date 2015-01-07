@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class LowerPanel extends JPanel {
+public class AnswerPanel extends JPanel {
 	/*
 	 * Lower Panel contains a text answer, no matter what type the task is
 	 */
@@ -24,7 +24,7 @@ public class LowerPanel extends JPanel {
 	private final JButton button;
 	private String answer;
 
-	public LowerPanel() {
+	public AnswerPanel() {
 		this.setAnswer("");
 
 		this.typeAnswer = new JTextField(50);

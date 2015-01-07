@@ -3,7 +3,7 @@ package guessGame.frontend;
 
 import guessGame.ImageTask;
 import guessGame.Task;
-import guessGame.frontend.LowerPanel;
+import guessGame.frontend.AnswerPanel;
 import guessGame.paint.message.ClearMessage;
 import guessGame.paint.message.PaintMessage;
 
@@ -37,10 +37,11 @@ public class Client extends JFrame {
 	private static final long serialVersionUID = -6463718980738496419L;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
-	private UpperPanel upperPanel;
-	private LowerPanel lowerPanel;
+	private TaskPanel taskPanel;
+	private AnswerPanel lowerPanel;
 	private JButton nextButton;
 	private HttpClient client;
+	private TaskPanelFactory taskPanelFactory;
 
 	public Client() throws Exception {
 
@@ -49,11 +50,12 @@ public class Client extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setSize(800, 600);
 
-		this.upperPanel = new UpperPanel();
-		this.upperPanel.setPreferredSize(new Dimension(600, 600));
-		this.add(upperPanel, BorderLayout.NORTH);
+		this.taskPanel = new TaskPanel();
+		this.taskPanelFactory = new TaskPanelFactory();
+		this.taskPanel.setPreferredSize(new Dimension(600, 450));
+		this.add(taskPanel, BorderLayout.NORTH);
 		
-		this.lowerPanel = new LowerPanel();
+		this.lowerPanel = new AnswerPanel();
 		this.nextButton = new JButton("Next");
 		this.nextButton.addActionListener(new NextTaskListener());
 		lowerPanel.add(nextButton, BorderLayout.WEST);
@@ -71,7 +73,7 @@ public class Client extends JFrame {
 	}
 
 	private void readInTask(HttpClient client) throws InterruptedException, ExecutionException, TimeoutException {
-		this.upperPanel.repaint(new ClearMessage());
+		//this.taskPanel.repaint(new ClearMessage());
 
 		//Request req = client.POST("http://localhost:8080/?user=rfriedman");
 		ContentResponse res = client.GET("http://localhost:8080/?user=rfriedman");
@@ -104,23 +106,22 @@ public class Client extends JFrame {
 	}
 
 	private void addPaintTask(Object obj) {
-		this.upperPanel.removeAll();
+		this.taskPanel.removeAll();
 		Task g = (Task) obj;
 		PaintMessage h = (PaintMessage) g.getChallenge();
 		String answer = g.getAnswer();
 		this.lowerPanel.setAnswer(answer);
-		this.upperPanel.repaint(h);
+		this.taskPanel.repaint(h);
 		this.repaint();
 	}
 	
 
 	private void addTask(Object obj) throws IOException {
-		this.upperPanel.removeAll();
-		Task g = (Task) obj;
-		
-		UpperPanel p= new PictureUpperPanel((String)g.getChallenge());
-		this.upperPanel.add(p);
-		this.lowerPanel.setAnswer(g.getAnswer());
+		this.taskPanel.removeAll();
+		Task task = (Task) obj;
+		TaskPanel p= taskPanelFactory.generatePanel(task.getChallenge(), task.getTaskType());
+		this.taskPanel.add(p);
+		this.lowerPanel.setAnswer(task.getAnswer());
 
 	}
 	

@@ -1,6 +1,6 @@
 package guessGame.threads;
 
-import guessGame.frontend.UpperPanel;
+import guessGame.frontend.TaskPanel;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -19,9 +19,9 @@ import javax.swing.JPanel;
 public class DownloadImageThread extends Thread {
 	private String url;
 	private JLabel jlb;
-	private UpperPanel up;
+	private TaskPanel up;
 
-	public DownloadImageThread(UpperPanel up,final JLabel label, final String url) {
+	public DownloadImageThread(TaskPanel up,final JLabel label, final String url) {
 
 		this.url = url;
 		this.jlb = label;
@@ -35,8 +35,7 @@ public class DownloadImageThread extends Thread {
 			URL imgUrl = new URL(url);
 			BufferedImage img = ImageIO.read(imgUrl);
 			this.jlb.setIcon(new ImageIcon(img));
-			//up.add(jlb);
-			this.jlb.getParent().getParent().revalidate();
+			
 
 		} catch (MalformedURLException m) {
 			m.printStackTrace();
