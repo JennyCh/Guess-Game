@@ -122,6 +122,8 @@ public class Client extends JFrame {
 		TaskPanel p= taskPanelFactory.generatePanel(task.getChallenge(), task.getTaskType());
 		this.taskPanel.add(p);
 		this.lowerPanel.setAnswer(task.getAnswer());
+		p.repaint();
+		
 
 	}
 	

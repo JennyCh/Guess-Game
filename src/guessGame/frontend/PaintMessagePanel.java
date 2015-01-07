@@ -11,9 +11,9 @@ import java.awt.image.BufferedImage;
 public class PaintMessagePanel extends TaskPanel {
 
 	private static final long serialVersionUID = 2646018017326072535L;
-	private String answer;
+	private boolean hasParent;
 	private PaintMessage pm = new ClearMessage();
-	private BufferedImage image;
+	
 
 	
 
@@ -33,15 +33,17 @@ public class PaintMessagePanel extends TaskPanel {
 
 	public void repaint(PaintMessage pm) {
 		this.pm = pm;
+		repaint();
 	}
 
 	@Override
 	public void addTask(Object challenge) {
 		// TODO Auto-generated method stub
-		Task g = (Task) challenge;
-		PaintMessage h = (PaintMessage) g.getChallenge();
-		String answer = g.getAnswer();
+		removeAll();
+		PaintMessage h = (PaintMessage) challenge;
+		//String answer = g.getAnswer();
 		this.repaint(h);
+		hasParent = true;
 		
 	}
 	

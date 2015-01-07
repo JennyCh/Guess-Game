@@ -24,7 +24,7 @@ public class PictureTaskPanel extends TaskPanel {
 	}
 
 	public void addTask(Object imageLink) throws IOException {
-		remove(jlb);
+		removeAll();
 		this.link = (String) imageLink;
 		URL imgUrl = new URL(link);
 		BufferedImage img = ImageIO.read(imgUrl);

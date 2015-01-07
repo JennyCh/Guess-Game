@@ -34,11 +34,11 @@ public class TaskFactory {
 		challenges = new ArrayList<Challenge>();
 		challenges.add(new Task(TaskType.JPEG,"https://farm8.staticflickr.com/7572/15491044323_99a2255bba_m.jpg", "Bullfinch"));
 		new DownloadHTMLImagesThread(challenges).start();;
-		/*challenges.add(new Task(TaskType.BINARY,new LineMessage(0, 100, 200, 300, Color.BLACK.getRGB(), 30),"line"));
+		challenges.add(new Task(TaskType.BINARY,new LineMessage(0, 100, 200, 300, Color.BLACK.getRGB(), 30),"line"));
 		challenges.add(new Task(TaskType.BINARY,new LineMessage(50, 100, 100, 300, Color.BLACK.getRGB(), 10),"line"));
 		challenges.add(new Task(TaskType.BINARY,new ShapeMessage(PaintType.RECTANGLE,100, 100, 100, 200, Color.BLACK.getRGB(), 10,true),"rectangle"));
 		challenges.add(new Task(TaskType.BINARY,new ShapeMessage(PaintType.OVAL,100, 100, 100, 200, Color.BLACK.getRGB(), 10,false),"oval"));
-		*/
+		
 		// upperPanels = getAllFileNames();
 	
 
