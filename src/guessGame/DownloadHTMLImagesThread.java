@@ -8,14 +8,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-
 public class DownloadHTMLImagesThread extends Thread {
 	private ArrayList<Challenge> challenges;
 	private static final String FEED_URL = "http://floorsix.blogspot.com/2007_11_01_archive.html";
-	
-	public DownloadHTMLImagesThread( ArrayList<Challenge> challenges){
+
+	public DownloadHTMLImagesThread(ArrayList<Challenge> challenges) {
 		this.challenges = challenges;
 	}
+
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -27,12 +27,21 @@ public class DownloadHTMLImagesThread extends Thread {
 			for(Element p:zoomedPics){
 				Elements images =p.getElementsByTag("img");
 				String upCloseImage = images.first().attr("src");
+				if(upCloseImage.contains("\n")){
+					upCloseImage = cleanUpUrl(upCloseImage,"\n");
+				}
 				String regularImage = images.last().attr("src");
+				if(regularImage.contains("\n")){
+					regularImage= cleanUpUrl(regularImage,"\n");
+				}
+				
 				String o =p.text();
 				
 				Element innerDiv = p.getElementsByTag("p").last();
 				//p.select("img.style)
 				System.out.println(o);
+				System.out.println(upCloseImage);
+				System.out.println(regularImage);
 				TaskType taskType = null;
 				if(upCloseImage.endsWith(".jpeg") || upCloseImage.endsWith(".jpg")){
 					taskType = TaskType.JPEG;
@@ -51,7 +60,11 @@ public class DownloadHTMLImagesThread extends Thread {
 			
 		}
 	}
-	
-	
-	
+
+	private String cleanUpUrl(String url, String regex) {
+
+		return url = url.replace(regex, "");
+
+	}
+
 }
