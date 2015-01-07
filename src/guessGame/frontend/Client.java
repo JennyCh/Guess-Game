@@ -117,7 +117,8 @@ public class Client extends JFrame {
 	private void addTask(Object obj) throws IOException {
 		this.upperPanel.removeAll();
 		Task g = (Task) obj;
-		PictureUpperPanel p= new PictureUpperPanel((String)g.getChallenge());
+		
+		UpperPanel p= new PictureUpperPanel((String)g.getChallenge());
 		this.upperPanel.add(p);
 		this.lowerPanel.setAnswer(g.getAnswer());
 

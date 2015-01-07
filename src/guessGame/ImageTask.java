@@ -34,7 +34,7 @@ public class ImageTask  implements Challenge,Serializable {
 	}
 
 	@Override
-	public TaskType getTFType() {
+	public TaskType getTaskType() {
 		// TODO Auto-generated method stub
 		return TaskType.JPEG;
 	}

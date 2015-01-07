@@ -43,7 +43,7 @@ public class Task implements Challenge, Serializable{
 
 
 	@Override
-	public TaskType getTFType() {
+	public TaskType getTaskType() {
 		// TODO Auto-generated method stub
 		return tfType;
 	}

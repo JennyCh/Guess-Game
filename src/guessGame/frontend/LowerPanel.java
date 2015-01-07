@@ -11,7 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class LowerPanel extends JPanel {
-
+	/*
+	 * Lower Panel contains a text answer, no matter what type the task is
+	 */
+	//TODO
+	//check that user answer is contained in STring
+	// no try again, display correct answer
+	//points you earned
+	
 	private final JTextField typeAnswer;
 	private final JLabel laber;
 	private final JButton button;

@@ -28,7 +28,7 @@ public class HandlerFactory {
 	public void handleTask(Challenge currentTask,String target, Request baseRequest,
 			HttpServletRequest request, HttpServletResponse response){
 		 try {
-			handlerMap.get(currentTask.getTFType()).handle(target,  baseRequest,
+			handlerMap.get(currentTask.getTaskType()).handle(target,  baseRequest,
 						request, response);
 		} catch (IOException | ServletException e) {
 			// TODO Auto-generated catch block
