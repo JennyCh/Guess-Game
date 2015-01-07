@@ -11,7 +11,7 @@ public class Task implements Challenge, Serializable{
 	private String answer;
 	private TaskType tfType;
 
-	public Task(TaskType tfType, PaintMessage challenge, String answer)  {
+	public Task(TaskType tfType, Object challenge, String answer)  {
 		this.tfType = tfType;
 		this.challenge = challenge;
 		this.answer = answer;
@@ -43,7 +43,7 @@ public class Task implements Challenge, Serializable{
 
 
 	@Override
-	public TaskType getTFType() {
+	public TaskType getTaskType() {
 		// TODO Auto-generated method stub
 		return tfType;
 	}

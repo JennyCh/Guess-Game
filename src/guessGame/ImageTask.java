@@ -1,24 +1,30 @@
 package guessGame;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
-public class ImageTask extends JComponent implements Challenge,Serializable {
+public class ImageTask  implements Challenge,Serializable {
 
-	private final ImageIcon image;
+	private final String link;
 	private final String answer;
 
-	public ImageTask(String link, String answer) {
-		this.image = new ImageIcon(link);
+	public ImageTask(String link, String answer) throws IOException {
+		
+		this.link = link;
 		this.answer = answer;
 	}
 
 	@Override
 	public Object getChallenge() {
 		// TODO Auto-generated method stub
-		return null;
+		return link;
 	}
 
 	@Override
@@ -27,14 +33,10 @@ public class ImageTask extends JComponent implements Challenge,Serializable {
 		return answer;
 	}
 
-	public ImageIcon getImage() {
-		return image;
-	}
-
 	@Override
-	public TaskType getTFType() {
+	public TaskType getTaskType() {
 		// TODO Auto-generated method stub
-		return null;
+		return TaskType.JPEG;
 	}
 
 }

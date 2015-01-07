@@ -7,6 +7,7 @@ import guessGame.TaskFactory;
 import java.awt.Canvas;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
 
@@ -41,8 +42,9 @@ public class MasterHttpHandler extends AbstractHandler  {
 		String user = request.getParameter("user");
 		System.out.println(request.getAttribute(user));
 		String pwd = request.getParameter("pwd");
+		
+	
 		/*
-		HttpSession session = request.getSession();
 		Enumeration<String> g = session.getAttributeNames();
 		while(g.hasMoreElements()){
 			System.out.println(g.nextElement());
@@ -53,6 +55,7 @@ public class MasterHttpHandler extends AbstractHandler  {
 		request.setAttribute("Task", currentTask);
 		handlerFactory.handleTask(currentTask ,target,  baseRequest,
 				request, response);
+
 		
 		System.out.println("Handled");
 

@@ -22,12 +22,13 @@ public class HandlerFactory {
 		handlerMap.put(TaskType.JPEG, new JPEGResponseHandler());
 		handlerMap.put(TaskType.GIF, new GIFResponseHandler());
 		handlerMap.put(TaskType.TEXT, new TextResponseHandler());
+		handlerMap.put(TaskType.PNG, new PNGResponseHandler());
 	}
 	
 	public void handleTask(Challenge currentTask,String target, Request baseRequest,
 			HttpServletRequest request, HttpServletResponse response){
 		 try {
-			handlerMap.get(currentTask.getTFType()).handle(target,  baseRequest,
+			handlerMap.get(currentTask.getTaskType()).handle(target,  baseRequest,
 						request, response);
 		} catch (IOException | ServletException e) {
 			// TODO Auto-generated catch block

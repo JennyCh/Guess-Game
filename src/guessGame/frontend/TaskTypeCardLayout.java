@@ -10,24 +10,24 @@ import javax.swing.JPanel;
 
 public class TaskTypeCardLayout extends CardLayout {
 	private PaintMessagePanel pmPanel;
-	private PictureUpperPanel picPanel;
-	private HashMap<String,UpperPanel> panelMap;
+	private PictureTaskPanel picPanel;
+	private HashMap<String,TaskPanel> panelMap;
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public TaskTypeCardLayout(LowerPanel lowerPanel) {
-		panelMap = new HashMap<String, UpperPanel>();
+	public TaskTypeCardLayout(AnswerPanel lowerPanel) {
+		panelMap = new HashMap<String, TaskPanel>();
 		panelMap.put(TaskType.BINARY.getDescription(),new PaintMessagePanel(lowerPanel));
-		panelMap.put(TaskType.JPEG.getDescription(), new PictureUpperPanel(lowerPanel));
+		panelMap.put(TaskType.JPEG.getDescription(), new PictureTaskPanel(lowerPanel));
 		setCardLayout();
 		
 	}
 
 	private void setCardLayout() {
-		for(Entry<String, UpperPanel> es: panelMap.entrySet()){
+		for(Entry<String, TaskPanel> es: panelMap.entrySet()){
 			this.addLayoutComponent(es.getValue(),es.getKey());
 		}
 	}
@@ -38,7 +38,7 @@ public class TaskTypeCardLayout extends CardLayout {
 	}
 
 	public void show(JPanel upperPanel, Object obj, String value) {
-		UpperPanel currentPanel =panelMap.get(value);
+		TaskPanel currentPanel =panelMap.get(value);
 		currentPanel.addTaskContent(obj);
 		currentPanel.repaint();
 		super.show(upperPanel, value);

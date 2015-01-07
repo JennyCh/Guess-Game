@@ -2,7 +2,7 @@ package guessGame;
 
 public enum TaskType {
 
-	BINARY("application/octet-stream"), JPEG("image/jpeg"), GIF("image/gif"), TEXT("text/plain");
+	BINARY("application/octet-stream"), JPEG("image/jpeg"), GIF("image/gif"), TEXT("text/plain"), PNG("image/png");
 
 	/*
 	 * Taken form http://www.freeformatter.com/mime-types-list.html
