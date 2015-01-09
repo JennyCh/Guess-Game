@@ -1,4 +1,3 @@
-
 package guessGame.frontend;
 
 import guessGame.ImageTask;
@@ -24,13 +23,15 @@ import java.util.concurrent.TimeoutException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.http.HttpField;
 import org.eclipse.jetty.http.HttpFields;
-
 
 public class Client extends JFrame {
 
@@ -42,6 +43,8 @@ public class Client extends JFrame {
 	private JButton nextButton;
 	private HttpClient client;
 	private TaskPanelFactory taskPanelFactory;
+	private String userName;
+	private String password;
 
 	public Client() throws Exception {
 
@@ -54,14 +57,17 @@ public class Client extends JFrame {
 		this.taskPanelFactory = new TaskPanelFactory();
 		this.taskPanel.setPreferredSize(new Dimension(600, 450));
 		this.add(taskPanel, BorderLayout.NORTH);
-		
+
 		this.lowerPanel = new AnswerPanel();
 		this.nextButton = new JButton("Next");
 		this.nextButton.addActionListener(new NextTaskListener());
 		lowerPanel.add(nextButton, BorderLayout.WEST);
 		lowerPanel.setPreferredSize(new Dimension(600, 100));
 		this.add(lowerPanel, BorderLayout.SOUTH);
-		
+
+		this.userName = "";
+		this.password = "";
+
 		System.out.println("works? ");
 		this.setVisible(true);
 		client = new HttpClient();
@@ -69,24 +75,41 @@ public class Client extends JFrame {
 
 		readInTask(client);
 
-	
 	}
 
-	private void readInTask(HttpClient client) throws InterruptedException, ExecutionException, TimeoutException {
-		//this.taskPanel.repaint(new ClearMessage());
+	private void logIn() {
+		JTextField userText = new JTextField();
+		JTextField passwordText = new JPasswordField();
+		Object[] message = { "Username:", userText, "Password:", passwordText };
 
-		//Request req = client.POST("http://localhost:8080/?user=rfriedman");
-		ContentResponse res = client.GET("http://localhost:8080/?user=rfriedman");
-		HttpFields headers =  res.getHeaders();
+		JOptionPane.showConfirmDialog(null, message, "Login",
+				JOptionPane.OK_OPTION);
+
+		userName = userText.getText();
+		password = passwordText.getText();
+	}
+
+	private void readInTask(HttpClient client) throws InterruptedException,
+			ExecutionException, TimeoutException {
+		// this.taskPanel.repaint(new ClearMessage());
+
+		// Request req = client.POST("http://localhost:8080/?user=rfriedman");
+		while ("".equals(userName) && "".equals(password)) {
+			logIn();
+		}
+
+		ContentResponse res = client.GET("http://localhost:8080/?user="
+				+ userName + "&pwd=" + password);
+		HttpFields headers = res.getHeaders();
 		Iterator<HttpField> iter = headers.iterator();
-		while(iter.hasNext()){
+		while (iter.hasNext()) {
 			System.out.println(iter.next());
 		}
 		System.out.println(res.getRequest().getAttributes());
 		System.out.println(res.getRequest().getAttributes());
 		Object m = res.getHeaders();
 		Object obj = null;
-		
+
 		try {
 			ObjectInputStream inStream = new ObjectInputStream(
 					new ByteArrayInputStream(res.getContent()));
@@ -101,8 +124,6 @@ public class Client extends JFrame {
 			e.printStackTrace();
 		}
 
-		
-		
 	}
 
 	private void addPaintTask(Object obj) {
@@ -114,20 +135,19 @@ public class Client extends JFrame {
 		this.taskPanel.repaint(h);
 		this.repaint();
 	}
-	
 
 	private void addTask(Object obj) throws IOException {
 		this.taskPanel.removeAll();
 		Task task = (Task) obj;
-		TaskPanel p= taskPanelFactory.generatePanel(task.getChallenge(), task.getTaskType());
+		TaskPanel p = taskPanelFactory.generatePanel(task.getChallenge(),
+				task.getTaskType());
 		this.taskPanel.add(p);
 		this.lowerPanel.setAnswer(task.getAnswer());
 		p.repaint();
-		
 
 	}
-	
-	private class NextTaskListener implements ActionListener{
+
+	private class NextTaskListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -140,7 +160,7 @@ public class Client extends JFrame {
 				e1.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	public static void main(String[] main) throws UnknownHostException,

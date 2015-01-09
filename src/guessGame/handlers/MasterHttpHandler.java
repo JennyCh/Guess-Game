@@ -1,12 +1,14 @@
 package guessGame.handlers;
 
 import guessGame.Challenge;
+import guessGame.DatabaseConnect;
 import guessGame.Task;
 import guessGame.TaskFactory;
 
 import java.awt.Canvas;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
@@ -29,10 +31,12 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 public class MasterHttpHandler extends AbstractHandler  {
 	private TaskFactory tf;
 	private HandlerFactory handlerFactory;
+	private DatabaseConnect dbConnect;
 	
-	public MasterHttpHandler(TaskFactory tf){
+	public MasterHttpHandler(TaskFactory tf) throws ClassNotFoundException, SQLException{
 		this.tf = tf;
 		handlerFactory = new HandlerFactory();
+		this.dbConnect = new DatabaseConnect();
 	}
 		
 	@Override
@@ -42,7 +46,17 @@ public class MasterHttpHandler extends AbstractHandler  {
 		String user = request.getParameter("user");
 		System.out.println(request.getAttribute(user));
 		String pwd = request.getParameter("pwd");
-		
+		System.out.println(request.getAttribute(pwd));
+		try {
+			if(dbConnect.isPlayerNew(user, pwd)){
+				dbConnect.insertPlayer(user, pwd);
+			}else{
+				dbConnect.addPoints(user, pwd);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 		/*
 		Enumeration<String> g = session.getAttributeNames();
