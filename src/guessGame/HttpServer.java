@@ -1,16 +1,9 @@
 package guessGame;
 
 
-import guessGame.ImagesTaskFactory;
 import guessGame.TaskFactory;
 import guessGame.handlers.MasterHttpHandler;
 
-import javax.swing.JPanel;
-
-import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.ContextHandler;
-import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.session.HashSessionIdManager;

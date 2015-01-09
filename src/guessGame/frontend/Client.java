@@ -58,23 +58,30 @@ public class Client extends JFrame {
 		this.taskPanel.setPreferredSize(new Dimension(600, 450));
 		this.add(taskPanel, BorderLayout.NORTH);
 
-		this.lowerPanel = new AnswerPanel();
+		this.lowerPanel = new AnswerPanel(this);
 		this.nextButton = new JButton("Next");
 		this.nextButton.addActionListener(new NextTaskListener());
 		lowerPanel.add(nextButton, BorderLayout.WEST);
 		lowerPanel.setPreferredSize(new Dimension(600, 100));
 		this.add(lowerPanel, BorderLayout.SOUTH);
 
-		this.userName = "";
-		this.password = "";
-
+		
 		System.out.println("works? ");
 		this.setVisible(true);
 		client = new HttpClient();
 		client.start();
+		
+		this.userName = "";
+		this.password = "";
+		while ("".equals(userName) && "".equals(password)) {
+			logIn();
+		}
+		readInTask(client, "false");
 
-		readInTask(client);
-
+	}
+	
+	public HttpClient getHttpClient(){
+		return client;
 	}
 
 	private void logIn() {
@@ -89,17 +96,15 @@ public class Client extends JFrame {
 		password = passwordText.getText();
 	}
 
-	private void readInTask(HttpClient client) throws InterruptedException,
+	public void readInTask(HttpClient client, String correct) throws InterruptedException,
 			ExecutionException, TimeoutException {
 		// this.taskPanel.repaint(new ClearMessage());
 
 		// Request req = client.POST("http://localhost:8080/?user=rfriedman");
-		while ("".equals(userName) && "".equals(password)) {
-			logIn();
-		}
+		
 
 		ContentResponse res = client.GET("http://localhost:8080/?user="
-				+ userName + "&pwd=" + password);
+				+ userName + "&pwd=" + password + "&correct=" + correct);
 		HttpFields headers = res.getHeaders();
 		Iterator<HttpField> iter = headers.iterator();
 		while (iter.hasNext()) {
@@ -132,7 +137,8 @@ public class Client extends JFrame {
 		PaintMessage h = (PaintMessage) g.getChallenge();
 		String answer = g.getAnswer();
 		this.lowerPanel.setAnswer(answer);
-		this.taskPanel.repaint(h);
+//		this.taskPanel.repaint(h); commented out mmandel
+		this.taskPanel.repaint();
 		this.repaint();
 	}
 
@@ -153,7 +159,7 @@ public class Client extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			try {
-				readInTask(client);
+				readInTask(client, "false");
 			} catch (InterruptedException | ExecutionException
 					| TimeoutException e1) {
 				// TODO Auto-generated catch block

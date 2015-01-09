@@ -3,6 +3,8 @@ package guessGame.frontend;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -23,8 +25,10 @@ public class AnswerPanel extends JPanel {
 	private final JLabel laber;
 	private final JButton button;
 	private String answer;
+	private Client client;
 
-	public AnswerPanel() {
+	public AnswerPanel(Client client) {
+		this.client = client;
 		this.setAnswer("");
 
 		this.typeAnswer = new JTextField(50);
@@ -40,19 +44,30 @@ public class AnswerPanel extends JPanel {
 
 	public void setAnswer(String answer) {
 		this.answer = answer;
+		System.out.println(answer);			
 	}
+	
+	
 
 	private class CheckAnswerListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println(answer);
+			String correct;
 			if (answer.equals(typeAnswer.getText())) {
-
-				JOptionPane.showMessageDialog(null, "Correct");
+				JOptionPane.showMessageDialog(null, "Correct");	
+				correct = "true";
 			} else {
-				JOptionPane.showMessageDialog(null, "Try Again");
+				JOptionPane.showMessageDialog(null, "Incorrect");
+				correct = "false";
 			}
+			try {
+					client.readInTask(client.getHttpClient(), correct);
+				} catch (InterruptedException | ExecutionException
+						| TimeoutException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 		}
 

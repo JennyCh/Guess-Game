@@ -3,6 +3,7 @@ package guessGame.frontend;
 import guessGame.TaskType;
 
 import java.awt.CardLayout;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -20,8 +21,12 @@ public class TaskTypeCardLayout extends CardLayout {
 
 	public TaskTypeCardLayout(AnswerPanel lowerPanel) {
 		panelMap = new HashMap<String, TaskPanel>();
-		panelMap.put(TaskType.BINARY.getDescription(),new PaintMessagePanel(lowerPanel));
-		panelMap.put(TaskType.JPEG.getDescription(), new PictureTaskPanel(lowerPanel));
+		//commented out mmandel
+//		panelMap.put(TaskType.BINARY.getDescription(),new PaintMessagePanel(lowerPanel));
+//		panelMap.put(TaskType.JPEG.getDescription(), new PictureTaskPanel(lowerPanel));
+		panelMap.put(TaskType.BINARY.getDescription(),new PaintMessagePanel());
+		panelMap.put(TaskType.JPEG.getDescription(), new PictureTaskPanel());
+		
 		setCardLayout();
 		
 	}
@@ -37,9 +42,10 @@ public class TaskTypeCardLayout extends CardLayout {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void show(JPanel upperPanel, Object obj, String value) {
+	public void show(JPanel upperPanel, Object obj, String value) throws IOException {
 		TaskPanel currentPanel =panelMap.get(value);
-		currentPanel.addTaskContent(obj);
+//		currentPanel.addTaskContent(obj);commented out mmandel
+		currentPanel.addTask(obj);
 		currentPanel.repaint();
 		super.show(upperPanel, value);
 		currentPanel.repaint();
