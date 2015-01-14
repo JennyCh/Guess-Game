@@ -53,16 +53,16 @@ public class AnswerPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String correct;
+			String typeOfRequest;
 			if (answer.equals(typeAnswer.getText())) {
 				JOptionPane.showMessageDialog(null, "Correct");	
-				correct = "true";
+				typeOfRequest = "submit";
 			} else {
 				JOptionPane.showMessageDialog(null, "Incorrect");
-				correct = "false";
+				typeOfRequest = "skip";
 			}
 			try {
-					client.readInTask(client.getHttpClient(), correct);
+					client.readInTask(client.getHttpClient(), typeOfRequest);
 				} catch (InterruptedException | ExecutionException
 						| TimeoutException e1) {
 					// TODO Auto-generated catch block
