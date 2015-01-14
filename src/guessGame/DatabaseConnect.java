@@ -25,23 +25,44 @@ public class DatabaseConnect {
 		stmt.close();
 	}
 
-	public void insertPlayer(String name, String password) throws SQLException {
-		stmt = c.createStatement();
-		String sql = "INSERT INTO PLAYER (NAME,PASSWORD,POINTS) " + "VALUES ('"
-				+ name + "', '" + password + "', 0);";
-		System.out.println(sql);
-		stmt.executeUpdate(sql);
-		stmt.close();
+	public boolean insertPlayer(String name, String password) throws SQLException {
+		if (!hasUserName(name)) {
+			stmt = c.createStatement();
+			String sql = "INSERT INTO PLAYER (NAME,PASSWORD,POINTS) "
+					+ "VALUES ('" + name + "', '" + password + "', 0);";
+			System.out.println(sql);
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}
+		return false;
 	}
 
-	public boolean isPlayerNew(String name, String password)
-			throws SQLException {
+	public boolean hasPlayer(String name, String password) throws SQLException {
 		stmt = c.createStatement();
-		String strQuery = "SELECT NAME FROM PLAYER " + "WHERE NAME = '" + name
+		String strQuery = "SELECT NAME FROM PLAYER WHERE NAME = '" + name
 				+ "' AND PASSWORD = '" + password + "';";
 		System.out.println(strQuery);
 		ResultSet rs = stmt.executeQuery(strQuery);
-		if (!rs.next()) {
+		if (rs.next()) {
+			rs.close();
+			stmt.close();
+			return true;
+		}
+		rs.close();
+		stmt.close();
+		return false;
+	}
+
+	public boolean hasUserName(String name) throws SQLException {
+		stmt = c.createStatement();
+		String strQuery = "SELECT NAME FROM PLAYER WHERE NAME = '" + name
+				+ "';";
+		System.out.println(strQuery);
+		ResultSet rs = stmt.executeQuery(strQuery);
+		if (rs.next()) {
+			rs.close();
+			stmt.close();
 			return true;
 		}
 		rs.close();
@@ -56,6 +77,7 @@ public class DatabaseConnect {
 		stmt = c.createStatement();
 		String sql = "UPDATE PLAYER SET POINTS = " + points + " WHERE NAME = '"
 				+ name + "' AND PASSWORD = '" + password + "';";
+		System.out.println(sql);
 		stmt.executeUpdate(sql);
 	}
 
@@ -87,6 +109,7 @@ public class DatabaseConnect {
 	public static void main(String args[]) throws ClassNotFoundException,
 			SQLException {
 		DatabaseConnect db = new DatabaseConnect();
-		db.createTable();
+		// db.createTable();
+		System.out.println(db.getPlayerPoints("MMandel", "1234"));
 	}
 }
