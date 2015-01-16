@@ -54,7 +54,7 @@ public class AnswerPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String typeOfRequest;
-			if (answer.equals(typeAnswer.getText())) {
+			if (answer.contains(typeAnswer.getText())) {
 				JOptionPane.showMessageDialog(null, "Correct");	
 				typeOfRequest = "submit";
 			} else {

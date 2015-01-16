@@ -144,7 +144,6 @@ public class Client extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	private void addPaintTask(Object obj) {
@@ -165,7 +164,6 @@ public class Client extends JFrame {
 		this.taskPanel.add(p);
 		this.lowerPanel.setAnswer(task.getAnswer());
 		p.repaint();
-
 	}
 
 	private class NextTaskListener implements ActionListener {
@@ -181,7 +179,6 @@ public class Client extends JFrame {
 				e1.printStackTrace();
 			}
 		}
-
 	}
 
 	private class PointsListener implements ActionListener {

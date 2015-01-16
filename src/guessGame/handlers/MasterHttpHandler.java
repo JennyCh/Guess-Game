@@ -68,7 +68,8 @@ public class MasterHttpHandler extends AbstractHandler {
 				break;
 			case "points":
 				int points = dbConnect.getPlayerPoints(name, password);
-				currentTask = new Task(TaskType.TEXT, "You have " + points + " points!", "");
+				int topPoints = dbConnect.getTopScore();
+				currentTask = new Task(TaskType.TEXT, "You have " + points + " points!\nHighest Score: " + topPoints, "");
 				break;
 			default:
 				currentTask = new Task(TaskType.TEXT, "Error", "");
