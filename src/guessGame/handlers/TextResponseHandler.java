@@ -3,6 +3,7 @@ package guessGame.handlers;
 import guessGame.TaskType;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
@@ -25,14 +26,17 @@ public class TextResponseHandler extends AbstractHandler {
 		response.setStatus(HttpServletResponse.SC_OK);
 		// response.getWriter().println("Hello World");
 		// HttpExchange g = new HttpExchange(null, null, null);
-
-		PrintWriter out = new PrintWriter(response.getOutputStream());
+		
+		
+		ObjectOutputStream out = new ObjectOutputStream(
+				response.getOutputStream());
 		// request.getAttribute("Task") always returnd an Object - set in
 		// MasterHandler
-		out.write((request.getAttribute("Task").toString()));
+		out.writeObject(request.getAttribute("Task"));
 		out.flush();
 		// response.getWriter().println(
 		// ( request.getAttribute("myCanvas")));
 		System.out.println("Handled");
+		
 	}
 }
