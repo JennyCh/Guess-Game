@@ -6,7 +6,6 @@ import guessGame.paint.message.PaintMessage;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
@@ -21,9 +20,6 @@ import java.util.concurrent.TimeoutException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
@@ -35,13 +31,13 @@ public class Client extends JFrame {
 	private static final long serialVersionUID = -6463718980738496419L;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
-	private TaskPanel taskPanel;
-	private AnswerPanel lowerPanel;
-	private JButton nextButton;
-	private JButton pointsButton;
-	private HttpClient client;
-	private TaskPanelFactory taskPanelFactory;
-	private LogIn logIn;
+	private final TaskPanel taskPanel;
+	private final AnswerPanel lowerPanel;
+	private final JButton nextButton;
+	private final JButton pointsButton;
+	private final HttpClient client;
+	private final TaskPanelFactory taskPanelFactory;
+	private final LogIn logIn;
 	private String userName;
 	private String password;
 
@@ -102,33 +98,30 @@ public class Client extends JFrame {
 		this.password = password;
 	}
 
-	public void readInTask(HttpClient client, String typeOfRequest)
-			throws InterruptedException, ExecutionException, TimeoutException {
+	public void readInTask(HttpClient client, String typeOfRequest) throws InterruptedException, ExecutionException,
+			TimeoutException {
 		// this.taskPanel.repaint(new ClearMessage());
 
 		// Request req = client.POST("http://localhost:8080/?user=rfriedman");
 
-		ContentResponse res = client.GET("http://localhost:8080/?user="
-				+ userName + "&pwd=" + password + "&typeOfRequest="
-				+ typeOfRequest);
-		HttpFields headers = res.getHeaders();
-		Iterator<HttpField> iter = headers.iterator();
+		final ContentResponse res = client.GET("http://localhost:8080/?user=" + userName + "&pwd=" + password
+				+ "&typeOfRequest=" + typeOfRequest);
+		final HttpFields headers = res.getHeaders();
+		final Iterator<HttpField> iter = headers.iterator();
 		while (iter.hasNext()) {
 			System.out.println(iter.next());
 		}
 		System.out.println(res.getRequest().getAttributes());
 		System.out.println(res.getRequest().getAttributes());
-		Object m = res.getHeaders();
+		final Object m = res.getHeaders();
 		Object obj = null;
 
 		try {
-			ObjectInputStream inStream = new ObjectInputStream(
-					new ByteArrayInputStream(res.getContent()));
+			final ObjectInputStream inStream = new ObjectInputStream(new ByteArrayInputStream(res.getContent()));
 			obj = inStream.readObject();
-			Task task = (Task) obj;
-
-			if (TaskType.TEXT.equals(task.getTaskType())
-					&& "".equals(task.getAnswer())) {
+			final Task task = (Task) obj;
+			System.out.println("ANSWER " + task.getAnswer());
+			if (TaskType.TEXT.equals(task.getTaskType()) && "".equals(task.getAnswer())) {
 				JOptionPane.showMessageDialog(this, task.getChallenge());
 				if ('U' == ((String) task.getChallenge()).charAt(0)) {
 					logIn.setVisible(true);
@@ -137,10 +130,10 @@ public class Client extends JFrame {
 			} else {
 				addTask(task);
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (final ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -149,9 +142,9 @@ public class Client extends JFrame {
 
 	private void addPaintTask(Object obj) {
 		this.taskPanel.removeAll();
-		Task g = (Task) obj;
-		PaintMessage h = (PaintMessage) g.getChallenge();
-		String answer = g.getAnswer();
+		final Task g = (Task) obj;
+		final PaintMessage h = (PaintMessage) g.getChallenge();
+		final String answer = g.getAnswer();
 		this.lowerPanel.setAnswer(answer);
 		// this.taskPanel.repaint(h); commented out mmandel
 		this.taskPanel.repaint();
@@ -160,8 +153,7 @@ public class Client extends JFrame {
 
 	private void addTask(Task task) throws IOException {
 		this.taskPanel.removeAll();
-		TaskPanel p = taskPanelFactory.generatePanel(task.getChallenge(),
-				task.getTaskType());
+		final TaskPanel p = taskPanelFactory.generatePanel(task.getChallenge(), task.getTaskType());
 		this.taskPanel.add(p);
 		this.lowerPanel.setAnswer(task.getAnswer());
 		p.repaint();
@@ -175,8 +167,7 @@ public class Client extends JFrame {
 			// TODO Auto-generated method stub
 			try {
 				readInTask(client, "skip");
-			} catch (InterruptedException | ExecutionException
-					| TimeoutException e1) {
+			} catch (InterruptedException | ExecutionException | TimeoutException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -191,8 +182,7 @@ public class Client extends JFrame {
 			// TODO Auto-generated method stub
 			try {
 				readInTask(client, "points");
-			} catch (InterruptedException | ExecutionException
-					| TimeoutException e1) {
+			} catch (InterruptedException | ExecutionException | TimeoutException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -200,12 +190,11 @@ public class Client extends JFrame {
 
 	}
 
-	public static void main(String[] main) throws UnknownHostException,
-			IOException, ClassNotFoundException {
+	public static void main(String[] main) throws UnknownHostException, IOException, ClassNotFoundException {
 
 		try {
 			new Client();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
