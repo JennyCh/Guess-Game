@@ -1,51 +1,36 @@
 package guessGame.frontend;
 
-import guessGame.Task;
-import guessGame.paint.message.ClearMessage;
-import guessGame.paint.message.PaintMessage;
-
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import Message.ClearMessage;
+import Message.PaintMessage;
+import Message.PaintMessageFactory;
 
 public class PaintMessagePanel extends TaskPanel {
 
 	private static final long serialVersionUID = 2646018017326072535L;
-	private boolean hasParent;
-	private PaintMessage pm = new ClearMessage();
-	
-
-	
-
-	
+	// private boolean hasParent;
+	private final PaintMessage pm = new ClearMessage();
+	private final PaintMessageFactory messageFactory;
+	private final PaintPanel panel;
 
 	public PaintMessagePanel() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
+		this.messageFactory = new PaintMessageFactory();
+		panel = new PaintPanel(pm);
+		this.add(panel);
 
-	@Override
-	protected void paintComponent(Graphics g) {
-		this.pm.apply((Graphics2D) g);
-		System.out.println(pm.toString());
-
-	}
-
-	public void repaint(PaintMessage pm) {
-		this.pm = pm;
-		repaint();
 	}
 
 	@Override
 	public void addTask(Object challenge) {
 		// TODO Auto-generated method stub
+		System.out.println("ADD TASK");
 		removeAll();
-		PaintMessage h = (PaintMessage) challenge;
-		//String answer = g.getAnswer();
-		this.repaint(h);
-		hasParent = true;
-		
+		final PaintMessage h = (PaintMessage) challenge;
+		// String answer = g.getAnswer();
+		this.panel.setPm(pm);
+		// hasParent = true;
+
 	}
-	
 
 }

@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Message.LineMessage;
+import Message.ShapeMessage;
+import Message.ShapeType;
 import flickr.DownloadFlickerFeedThread;
-import guessGame.paint.message.LineMessage;
-import guessGame.paint.message.PaintType;
-import guessGame.paint.message.ShapeMessage;
 
 public class TaskFactory {
 
@@ -38,10 +38,10 @@ public class TaskFactory {
 		new DownloadHTMLImagesThread(challenges).start();
 		challenges.add(new Task(TaskType.BINARY, new LineMessage(0, 100, 200, 300, Color.BLACK.getRGB(), 30), "line"));
 		challenges.add(new Task(TaskType.BINARY, new LineMessage(50, 100, 100, 300, Color.BLACK.getRGB(), 10), "line"));
-		challenges.add(new Task(TaskType.BINARY, new ShapeMessage(PaintType.RECTANGLE, 100, 100, 100, 200, Color.BLACK
+		challenges.add(new Task(TaskType.BINARY, new ShapeMessage(ShapeType.RECT, 100, 100, 100, 200, Color.BLACK
 				.getRGB(), 10, true), "rectangle"));
-		challenges.add(new Task(TaskType.BINARY, new ShapeMessage(PaintType.OVAL, 100, 100, 100, 200, Color.BLACK
-				.getRGB(), 10, false), "oval"));
+		challenges.add(new Task(TaskType.BINARY, new ShapeMessage(ShapeType.OVAL, 10, 10, 100, 200, Color.BLACK
+				.getRGB(), 5, false), "oval"));
 
 		// upperPanels = getAllFileNames();
 

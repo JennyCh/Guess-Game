@@ -9,6 +9,7 @@ public class TaskPanelFactory {
 	/* All taskPanels extend UpperPanel */
 
 	private final HashMap<TaskType, TaskPanel> taskPanelMap;
+	private TaskPanel currentPanel;
 
 	public TaskPanelFactory() {
 		taskPanelMap = new HashMap<TaskType, TaskPanel>();
@@ -21,7 +22,10 @@ public class TaskPanelFactory {
 	}
 
 	public TaskPanel generatePanel(Object challenge, TaskType taskType) throws IOException {
-		final TaskPanel currentPanel = taskPanelMap.get(taskType);
+		System.out.println("TAKS TYPE " + taskType.toString());
+		System.out.println(challenge.toString());
+		currentPanel = taskPanelMap.get(taskType);
+		currentPanel.removeAll();
 		currentPanel.addTask(challenge);
 		/*
 		 * addTask exception will be handled in the client readInTask method
@@ -29,4 +33,13 @@ public class TaskPanelFactory {
 		 */
 		return currentPanel;
 	}
+
+	public HashMap<TaskType, TaskPanel> getTaskPanelMap() {
+		return taskPanelMap;
+	}
+
+	public TaskPanel getCurrentPanel() {
+		return currentPanel;
+	}
+
 }

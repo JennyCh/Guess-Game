@@ -2,7 +2,6 @@ package guessGame.frontend;
 
 import guessGame.Task;
 import guessGame.TaskType;
-import guessGame.paint.message.PaintMessage;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -25,6 +24,8 @@ import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.http.HttpField;
 import org.eclipse.jetty.http.HttpFields;
+
+import Message.PaintMessage;
 
 public class Client extends JFrame {
 
@@ -98,7 +99,7 @@ public class Client extends JFrame {
 	}
 
 	public void readInTask(HttpClient client, String typeOfRequest) throws InterruptedException, ExecutionException,
-			TimeoutException {
+	TimeoutException {
 		// this.taskPanel.repaint(new ClearMessage());
 
 		// Request req = client.POST("http://localhost:8080/?user=rfriedman");
