@@ -28,7 +28,6 @@ import org.eclipse.jetty.http.HttpFields;
 
 public class Client extends JFrame {
 
-	private static final long serialVersionUID = -6463718980738496419L;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	private final TaskPanel taskPanel;
@@ -109,9 +108,8 @@ public class Client extends JFrame {
 		final HttpFields headers = res.getHeaders();
 		final Iterator<HttpField> iter = headers.iterator();
 		while (iter.hasNext()) {
-			System.out.println(iter.next());
+			System.out.println("HEADERS " + iter.next());
 		}
-		System.out.println(res.getRequest().getAttributes());
 		System.out.println(res.getRequest().getAttributes());
 		final Object m = res.getHeaders();
 		Object obj = null;

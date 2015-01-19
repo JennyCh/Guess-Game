@@ -16,16 +16,16 @@ public class AnswerPanel extends JPanel {
 	/*
 	 * Lower Panel contains a text answer, no matter what type the task is
 	 */
-	//TODO
-	//check that user answer is contained in STring
+	// TODO
+	// check that user answer is contained in STring
 	// no try again, display correct answer
-	//points you earned
-	
+	// points you earned
+
 	private final JTextField typeAnswer;
 	private final JLabel laber;
 	private final JButton button;
 	private String answer;
-	private Client client;
+	private final Client client;
 
 	public AnswerPanel(Client client) {
 		this.client = client;
@@ -44,30 +44,28 @@ public class AnswerPanel extends JPanel {
 
 	public void setAnswer(String answer) {
 		this.answer = answer;
-		System.out.println(answer);			
+		System.out.println(answer);
 	}
-	
-	
 
 	private class CheckAnswerListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String typeOfRequest;
+			System.out.println("COMPARE ANSWERS " + answer + " == " + typeAnswer.getText());
 			if (answer.equals(typeAnswer.getText())) {
-				JOptionPane.showMessageDialog(null, "Correct");	
+				JOptionPane.showMessageDialog(null, "Correct");
 				typeOfRequest = "submit";
 			} else {
 				JOptionPane.showMessageDialog(null, "Incorrect");
 				typeOfRequest = "skip";
 			}
 			try {
-					client.readInTask(client.getHttpClient(), typeOfRequest);
-				} catch (InterruptedException | ExecutionException
-						| TimeoutException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				client.readInTask(client.getHttpClient(), typeOfRequest);
+			} catch (InterruptedException | ExecutionException | TimeoutException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 		}
 

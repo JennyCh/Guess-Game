@@ -2,23 +2,20 @@ package guessGame;
 
 import java.io.Serializable;
 
-import guessGame.paint.message.PaintMessage;
+public class Task implements Challenge, Serializable {
 
+	private final Object challenge;
+	private final String answer;
+	private final TaskType tfType;
 
-public class Task implements Challenge, Serializable{
-
-	private Object challenge;
-	private String answer;
-	private TaskType tfType;
-
-	public Task(TaskType tfType, Object challenge, String answer)  {
+	public Task(TaskType tfType, Object challenge, String answer) {
 		this.tfType = tfType;
 		this.challenge = challenge;
 		this.answer = answer;
-		
+
 	}
-	
-	public Task(ImageTask imageTask){
+
+	public Task(ImageTask imageTask) {
 		this.tfType = TaskType.JPEG;
 		this.challenge = imageTask.getChallenge();
 		this.answer = imageTask.getAnswer();
@@ -40,7 +37,6 @@ public class Task implements Challenge, Serializable{
 		// TODO Auto-generated method stub
 		return answer;
 	}
-
 
 	@Override
 	public TaskType getTaskType() {
