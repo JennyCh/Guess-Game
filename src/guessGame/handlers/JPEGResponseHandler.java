@@ -15,9 +15,8 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 public class JPEGResponseHandler extends AbstractHandler {
 
 	@Override
-	public void handle(String target, Request baseRequest,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
+					throws IOException, ServletException {
 
 		response.setContentType(TaskType.JPEG.getDescription());
 
@@ -25,10 +24,10 @@ public class JPEGResponseHandler extends AbstractHandler {
 		// response.getWriter().println("Hello World");
 		// HttpExchange g = new HttpExchange(null, null, null);
 
-		ObjectOutputStream out = new ObjectOutputStream(
-				response.getOutputStream());
+		final ObjectOutputStream out = new ObjectOutputStream(response.getOutputStream());
 		// request.getAttribute("Task") always returnd an Object - set in
 		// MasterHandler
+		System.out.println(request.toString());
 		out.writeObject(request.getAttribute("Task"));
 		out.flush();
 		// response.getWriter().println(

@@ -2,13 +2,15 @@ package guessGame;
 
 import java.io.Serializable;
 
+import javax.swing.ImageIcon;
+
 public class Task implements Challenge, Serializable {
 
 	private final Object challenge;
 	private final String answer;
 	private final TaskType tfType;
 
-	public Task(TaskType tfType, Object challenge, String answer) {
+	public Task(TaskType tfType, ImageIcon challenge, String answer) {
 		this.tfType = tfType;
 		this.challenge = challenge;
 		this.answer = answer;

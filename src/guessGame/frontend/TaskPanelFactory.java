@@ -17,7 +17,6 @@ public class TaskPanelFactory {
 		taskPanelMap.put(TaskType.JPEG, new PictureTaskPanel());
 		taskPanelMap.put(TaskType.GIF, new PictureTaskPanel());
 		taskPanelMap.put(TaskType.PNG, new PictureTaskPanel());
-		taskPanelMap.put(TaskType.BINARY, new PaintMessagePanel());
 
 	}
 

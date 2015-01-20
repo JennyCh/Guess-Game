@@ -2,9 +2,7 @@ package guessGame.handlers;
 
 import guessGame.Challenge;
 import guessGame.DatabaseConnect;
-import guessGame.Task;
 import guessGame.TaskFactory;
-import guessGame.TaskType;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,31 +10,36 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
 public class MasterHttpHandler extends AbstractHandler {
-	private TaskFactory tf;
-	private HandlerFactory handlerFactory;
-	private DatabaseConnect dbConnect;
+	private final TaskFactory tf;
+	private final HandlerFactory handlerFactory;
+	private final DatabaseConnect dbConnect;
+	private int points;
 
-	public MasterHttpHandler(TaskFactory tf) throws ClassNotFoundException,
-			SQLException {
+	public MasterHttpHandler(TaskFactory tf) throws ClassNotFoundException, SQLException {
 		this.tf = tf;
 		handlerFactory = new HandlerFactory();
 		this.dbConnect = new DatabaseConnect();
+		points = 0;
+	}
+
+	public int getPoints() {
+		return points;
 	}
 
 	@Override
-	public void handle(String target, Request baseRequest,
-			HttpServletRequest request, HttpServletResponse response)
+	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		String name = request.getParameter("user");
+		final String name = request.getParameter("user");
 		System.out.println(name);
-		String password = request.getParameter("pwd");
+		final String password = request.getParameter("pwd");
 		System.out.println(password);
-		String typeOfRequest = request.getParameter("typeOfRequest");
+		final String typeOfRequest = request.getParameter("typeOfRequest");
 		System.out.println(typeOfRequest);
 		Challenge currentTask = null;
 		try {
@@ -44,19 +47,19 @@ public class MasterHttpHandler extends AbstractHandler {
 			case "login":
 				if (!dbConnect.hasPlayer(name, password)) {
 					// send message that name or password is incorrect
-					currentTask = new Task(TaskType.TEXT,
-							"UserName or Password is incorrect", "");
-				}else{
+					// currentTask = new Task(TaskType.TEXT,
+					// "UserName or Password is incorrect", "");
+				} else {
 					currentTask = getTask();
 				}
 				break;
 			case "register":
 				if (!dbConnect.insertPlayer(name, password)) {
 					// send message that user name already exists
-					currentTask = new Task(TaskType.TEXT,
-							"UserName already exists. Try again", "");
-				}else{
-					currentTask = getTask();					
+					// currentTask = new Task(TaskType.TEXT,
+					// "UserName already exists. Try again", "");
+				} else {
+					currentTask = getTask();
 				}
 				break;
 			case "submit":
@@ -67,16 +70,21 @@ public class MasterHttpHandler extends AbstractHandler {
 				currentTask = getTask();
 				break;
 			case "points":
-				int points = dbConnect.getPlayerPoints(name, password);
-				currentTask = new Task(TaskType.TEXT, "You have " + points + " points!", "");
+				points = dbConnect.getPlayerPoints(name, password);
+				/*
+				 * currentTask = new Task(TaskType.TEXT, "You have " + points +
+				 * " points!", "");
+				 */
+				// JOptionPane.showMessageDialog(points, null);
+				JOptionPane.showMessageDialog(null, points);
 				break;
 			default:
-				currentTask = new Task(TaskType.TEXT, "Error", "");
+				// currentTask = new Task(TaskType.TEXT, "Error", "");
+				JOptionPane.showMessageDialog(null, "Error");
 			}
 			handleTask(currentTask, target, baseRequest, request, response);
-			
 
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -97,20 +105,19 @@ public class MasterHttpHandler extends AbstractHandler {
 
 	}
 
-	public void handleTask(Challenge currentTask, String target, Request baseRequest,
-			HttpServletRequest request, HttpServletResponse response) {
+	public void handleTask(Challenge currentTask, String target, Request baseRequest, HttpServletRequest request,
+			HttpServletResponse response) {
 		request.setAttribute("Task", currentTask);
-		handlerFactory.handleTask(currentTask, target, baseRequest, request,
-				response);
+		handlerFactory.handleTask(currentTask, target, baseRequest, request, response);
 
-		System.out.println("Handled");
+		// System.out.println("Handled");
 
 		baseRequest.setHandled(true);
 
 	}
 
 	private Challenge getTask() {
-		return tf.getTask();
+		return tf.getNextTask();
 	}
 
 }

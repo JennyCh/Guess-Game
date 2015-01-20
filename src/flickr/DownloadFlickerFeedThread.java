@@ -4,6 +4,7 @@ import guessGame.Challenge;
 import guessGame.Task;
 import guessGame.TaskType;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +13,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -77,8 +81,15 @@ public class DownloadFlickerFeedThread extends Thread {
 
 	public void setChallenges() {
 		final ArrayList<Item> items = list.getItems();
+		BufferedImage img = null;
 		for (final Item item : items) {
-			challenges.add(new Task(TaskType.JPEG, item.getMedia(), item.getTitle()));
+			try {
+				img = ImageIO.read(new URL(item.getMedia().getM()));
+			} catch (final IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			challenges.add(new Task(TaskType.JPEG, new ImageIcon(img), item.getTitle()));
 
 		}
 	}

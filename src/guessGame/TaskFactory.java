@@ -1,68 +1,37 @@
 package guessGame;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Message.LineMessage;
-import Message.ShapeMessage;
-import Message.ShapeType;
 import flickr.DownloadFlickerFeedThread;
 
 public class TaskFactory {
 
 	/*
-	 * this class has 2 arraylists that are composed out off panels for top and
-	 * bottom. this class is responsible for picking out the panels and creating
-	 * a task out of them
+	 * This class has an array list of all the challenges
 	 */
 	private Task task;
 	protected ArrayList<Challenge> challenges;
 	private int currentIndex = 0;
 
 	public TaskFactory() throws IOException {
-		/*
-		 * create a function that will go through the folder to pick all the
-		 * panels by name
-		 * 
-		 * //this.upperPanel = upperPanelSs.get(r.nextInt(upperPanels.size()));
-		 * //this.lowerPanel = lowerPanels.get(r.nextInt(lowerPanels.size()));
-		 */
 
 		challenges = new ArrayList<Challenge>();
-		// challenges.add(new Task(TaskType.JPEG,
-		// "https://farm8.staticflickr.com/7572/15491044323_99a2255bba_m.jpg","Bullfinch"));
 		new DownloadFlickerFeedThread(challenges).start();
-
-		new DownloadHTMLImagesThread(challenges).start();
-		challenges.add(new Task(TaskType.BINARY, new LineMessage(0, 100, 200, 300, Color.BLACK.getRGB(), 30), "line"));
-		challenges.add(new Task(TaskType.BINARY, new LineMessage(50, 100, 100, 300, Color.BLACK.getRGB(), 10), "line"));
-		challenges.add(new Task(TaskType.BINARY, new ShapeMessage(ShapeType.RECT, 100, 100, 100, 200, Color.BLACK
-				.getRGB(), 10, true), "rectangle"));
-		challenges.add(new Task(TaskType.BINARY, new ShapeMessage(ShapeType.OVAL, 10, 10, 100, 200, Color.BLACK
-				.getRGB(), 5, false), "oval"));
-
-		// upperPanels = getAllFileNames();
-
-		// upperPanels.add(this.upperPanel);
-		// lowerPanels.add(this.lowerPanel);
-
-		//
+		new LoadExistingImageTasks(challenges).start();
+		// new DownloadHTMLImagesThread(challenges).start();
 
 	}
 
-	public Challenge getTask() {
+	public Challenge getNextTask() {
 		if (currentIndex + 1 == challenges.size()) {
 			currentIndex = 0;
 			return challenges.get(currentIndex);
 		} else {
 			return challenges.get(++currentIndex);
 		}
-		/*
-		 * currentIndex = (currentIndex+1)%challenges.size(); return
-		 * challenges.get(currentIndex);
-		 */
+
 	}
 
 	public Challenge getRandomTask() {

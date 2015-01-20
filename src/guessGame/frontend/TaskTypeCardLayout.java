@@ -10,9 +10,8 @@ import java.util.Map.Entry;
 import javax.swing.JPanel;
 
 public class TaskTypeCardLayout extends CardLayout {
-	private PaintMessagePanel pmPanel;
 	private PictureTaskPanel picPanel;
-	private HashMap<String,TaskPanel> panelMap;
+	private HashMap<String, TaskPanel> panelMap;
 
 	/**
 	 * 
@@ -21,19 +20,20 @@ public class TaskTypeCardLayout extends CardLayout {
 
 	public TaskTypeCardLayout(AnswerPanel lowerPanel) {
 		panelMap = new HashMap<String, TaskPanel>();
-		//commented out mmandel
-//		panelMap.put(TaskType.BINARY.getDescription(),new PaintMessagePanel(lowerPanel));
-//		panelMap.put(TaskType.JPEG.getDescription(), new PictureTaskPanel(lowerPanel));
-		panelMap.put(TaskType.BINARY.getDescription(),new PaintMessagePanel());
+		// commented out mmandel
+		// panelMap.put(TaskType.BINARY.getDescription(),new
+		// PaintMessagePanel(lowerPanel));
+		// panelMap.put(TaskType.JPEG.getDescription(), new
+		// PictureTaskPanel(lowerPanel));
 		panelMap.put(TaskType.JPEG.getDescription(), new PictureTaskPanel());
-		
+
 		setCardLayout();
-		
+
 	}
 
 	private void setCardLayout() {
-		for(Entry<String, TaskPanel> es: panelMap.entrySet()){
-			this.addLayoutComponent(es.getValue(),es.getKey());
+		for (final Entry<String, TaskPanel> es : panelMap.entrySet()) {
+			this.addLayoutComponent(es.getValue(), es.getKey());
 		}
 	}
 
@@ -43,13 +43,12 @@ public class TaskTypeCardLayout extends CardLayout {
 	}
 
 	public void show(JPanel upperPanel, Object obj, String value) throws IOException {
-		TaskPanel currentPanel =panelMap.get(value);
-//		currentPanel.addTaskContent(obj);commented out mmandel
+		final TaskPanel currentPanel = panelMap.get(value);
+		// currentPanel.addTaskContent(obj);commented out mmandel
 		currentPanel.addTask(obj);
 		currentPanel.repaint();
 		super.show(upperPanel, value);
 		currentPanel.repaint();
 	}
-
 
 }

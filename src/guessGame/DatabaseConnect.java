@@ -19,8 +19,7 @@ public class DatabaseConnect {
 
 	public void createTable() throws SQLException {
 		stmt = c.createStatement();
-		String sql = "CREATE TABLE PLAYER (NAME TEXT NOT NULL,"
-				+ " PASSWORD TEXT NOT NULL, POINTS INT NOT NULL)";
+		final String sql = "CREATE TABLE PLAYER (NAME TEXT NOT NULL," + " PASSWORD TEXT NOT NULL, POINTS INT NOT NULL)";
 		stmt.executeUpdate(sql);
 		stmt.close();
 	}
@@ -28,8 +27,8 @@ public class DatabaseConnect {
 	public boolean insertPlayer(String name, String password) throws SQLException {
 		if (!hasUserName(name)) {
 			stmt = c.createStatement();
-			String sql = "INSERT INTO PLAYER (NAME,PASSWORD,POINTS) "
-					+ "VALUES ('" + name + "', '" + password + "', 0);";
+			final String sql = "INSERT INTO PLAYER (NAME,PASSWORD,POINTS) " + "VALUES ('" + name + "', '" + password
+					+ "', 0);";
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -40,10 +39,10 @@ public class DatabaseConnect {
 
 	public boolean hasPlayer(String name, String password) throws SQLException {
 		stmt = c.createStatement();
-		String strQuery = "SELECT NAME FROM PLAYER WHERE NAME = '" + name
-				+ "' AND PASSWORD = '" + password + "';";
+		final String strQuery = "SELECT NAME FROM PLAYER WHERE NAME = '" + name + "' AND PASSWORD = '" + password
+				+ "';";
 		System.out.println(strQuery);
-		ResultSet rs = stmt.executeQuery(strQuery);
+		final ResultSet rs = stmt.executeQuery(strQuery);
 		if (rs.next()) {
 			rs.close();
 			stmt.close();
@@ -56,10 +55,9 @@ public class DatabaseConnect {
 
 	public boolean hasUserName(String name) throws SQLException {
 		stmt = c.createStatement();
-		String strQuery = "SELECT NAME FROM PLAYER WHERE NAME = '" + name
-				+ "';";
+		final String strQuery = "SELECT NAME FROM PLAYER WHERE NAME = '" + name + "';";
 		System.out.println(strQuery);
-		ResultSet rs = stmt.executeQuery(strQuery);
+		final ResultSet rs = stmt.executeQuery(strQuery);
 		if (rs.next()) {
 			rs.close();
 			stmt.close();
@@ -75,20 +73,18 @@ public class DatabaseConnect {
 		points += 5;
 
 		stmt = c.createStatement();
-		String sql = "UPDATE PLAYER SET POINTS = " + points + " WHERE NAME = '"
-				+ name + "' AND PASSWORD = '" + password + "';";
+		final String sql = "UPDATE PLAYER SET POINTS = " + points + " WHERE NAME = '" + name + "' AND PASSWORD = '"
+				+ password + "';";
 		System.out.println(sql);
 		stmt.executeUpdate(sql);
 	}
 
-	public int getPlayerPoints(String name, String password)
-			throws SQLException {
+	public int getPlayerPoints(String name, String password) throws SQLException {
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT POINTS FROM PLAYER "
-				+ "WHERE NAME='" + name + "' AND PASSWORD = '" + password
-				+ "';");
+		final ResultSet rs = stmt.executeQuery("SELECT POINTS FROM PLAYER " + "WHERE NAME='" + name
+				+ "' AND PASSWORD = '" + password + "';");
 		rs.next();
-		int points = rs.getInt("POINTS");
+		final int points = rs.getInt("POINTS");
 		rs.close();
 		stmt.close();
 		return points;
@@ -96,8 +92,8 @@ public class DatabaseConnect {
 
 	public int getTopScore() throws SQLException {
 		stmt = c.createStatement();
-		String sql = "SELECT MAX(POINTS) AS TOP_SCORE FROM PLAYER";
-		ResultSet rs = stmt.executeQuery(sql);
+		final String sql = "SELECT MAX(POINTS) AS TOP_SCORE FROM PLAYER";
+		final ResultSet rs = stmt.executeQuery(sql);
 		if (!rs.next()) {
 			return rs.getInt("TOP_SCORE");
 		}
@@ -106,9 +102,8 @@ public class DatabaseConnect {
 		return 0;
 	}
 
-	public static void main(String args[]) throws ClassNotFoundException,
-			SQLException {
-		DatabaseConnect db = new DatabaseConnect();
+	public static void main(String args[]) throws ClassNotFoundException, SQLException {
+		final DatabaseConnect db = new DatabaseConnect();
 		// db.createTable();
 		System.out.println(db.getPlayerPoints("MMandel", "1234"));
 	}
