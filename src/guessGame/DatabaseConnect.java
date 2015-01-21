@@ -94,7 +94,7 @@ public class DatabaseConnect {
 		stmt = c.createStatement();
 		final String sql = "SELECT MAX(POINTS) AS TOP_SCORE FROM PLAYER";
 		final ResultSet rs = stmt.executeQuery(sql);
-		if (!rs.next()) {
+		if (rs.next()) {
 			return rs.getInt("TOP_SCORE");
 		}
 		rs.close();

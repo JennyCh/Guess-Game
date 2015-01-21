@@ -2,7 +2,9 @@ package guessGame.handlers;
 
 import guessGame.Challenge;
 import guessGame.DatabaseConnect;
+import guessGame.Task;
 import guessGame.TaskFactory;
+import guessGame.TaskType;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,7 +21,7 @@ public class MasterHttpHandler extends AbstractHandler {
 	private final TaskFactory tf;
 	private final HandlerFactory handlerFactory;
 	private final DatabaseConnect dbConnect;
-	private int points;
+	private int points, toPoints;
 
 	public MasterHttpHandler(TaskFactory tf) throws ClassNotFoundException, SQLException {
 		this.tf = tf;
@@ -47,8 +49,7 @@ public class MasterHttpHandler extends AbstractHandler {
 			case "login":
 				if (!dbConnect.hasPlayer(name, password)) {
 					// send message that name or password is incorrect
-					// currentTask = new Task(TaskType.TEXT,
-					// "UserName or Password is incorrect", "");
+					currentTask = new Task(TaskType.JPEG, "UserName or Password is incorrect", "");
 				} else {
 					currentTask = getTask();
 				}
@@ -56,8 +57,7 @@ public class MasterHttpHandler extends AbstractHandler {
 			case "register":
 				if (!dbConnect.insertPlayer(name, password)) {
 					// send message that user name already exists
-					// currentTask = new Task(TaskType.TEXT,
-					// "UserName already exists. Try again", "");
+					currentTask = new Task(TaskType.JPEG, "UserName already exists. Try again", "");
 				} else {
 					currentTask = getTask();
 				}
@@ -71,12 +71,12 @@ public class MasterHttpHandler extends AbstractHandler {
 				break;
 			case "points":
 				points = dbConnect.getPlayerPoints(name, password);
-				/*
-				 * currentTask = new Task(TaskType.TEXT, "You have " + points +
-				 * " points!", "");
-				 */
+				toPoints = dbConnect.getTopScore();
+				currentTask = new Task(TaskType.JPEG, "You have " + points + " points!\nTop score: " + toPoints,
+						"points");
+
 				// JOptionPane.showMessageDialog(points, null);
-				JOptionPane.showMessageDialog(null, points);
+				// JOptionPane.showMessageDialog(null, points);
 				break;
 			default:
 				// currentTask = new Task(TaskType.TEXT, "Error", "");

@@ -1,4 +1,4 @@
-package flickr;
+package guessGame.flickr;
 
 import java.util.ArrayList;
 

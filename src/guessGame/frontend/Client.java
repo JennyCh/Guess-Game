@@ -1,7 +1,6 @@
 package guessGame.frontend;
 
 import guessGame.Task;
-import guessGame.TaskType;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -88,7 +87,7 @@ public class Client extends JFrame {
 	}
 
 	public void readInTask(HttpClient client, String typeOfRequest) throws InterruptedException, ExecutionException,
-	TimeoutException {
+			TimeoutException {
 		// this.taskPanel.repaint(new ClearMessage());
 
 		// Request req = client.POST("http://localhost:8080/?user=rfriedman");
@@ -111,9 +110,10 @@ public class Client extends JFrame {
 			obj = inStream.readObject();
 			final Task task = (Task) obj;
 			System.out.println("ANSWER " + task.getAnswer());
-			if (TaskType.TEXT.equals(task.getTaskType()) && "".equals(task.getAnswer())) {
+			final boolean login = "".equals(task.getAnswer());
+			if (login || "points".equals(task.getAnswer())) {
 				JOptionPane.showMessageDialog(this, task.getChallenge());
-				if ('U' == ((String) task.getChallenge()).charAt(0)) {
+				if (login) {
 					logIn.setVisible(true);
 					this.disable();
 				}

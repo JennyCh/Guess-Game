@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import flickr.DownloadFlickerFeedThread;
+import guessGame.flickr.DownloadFlickerFeedThread;
 
 public class TaskFactory {
 

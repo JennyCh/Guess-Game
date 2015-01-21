@@ -1,4 +1,4 @@
-package flickr;
+package guessGame.flickr;
 
 import guessGame.Challenge;
 import guessGame.Task;

@@ -114,7 +114,7 @@ public class AnswerPanel extends JPanel {
 			String typeOfRequest = null;
 
 			if (e.getSource() == button) {
-				if (answer.equals(typeAnswer.getText())) {
+				if (answer.equalsIgnoreCase(typeAnswer.getText().trim())) {
 					// JOptionPane.showMessageDialog(null, "Correct");
 					submitResponse.setText("Correct");
 					submitResponse.setForeground(Color.green);

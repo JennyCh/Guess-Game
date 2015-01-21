@@ -49,7 +49,7 @@ public class LoadExistingImageTasks extends Thread {
 	}
 
 	private void getAllFileNames() {
-		final String path = "src/existingImageTasks/";
+		final String path = "src/guessGame/images/";
 		final File folder = new File(path);
 		final File[] listOfFiles = folder.listFiles();
 
